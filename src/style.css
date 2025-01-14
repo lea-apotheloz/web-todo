@@ -24,5 +24,9 @@ h1 {
 }
 .add-todo {
   position: absolute;
-  right: 720px;
+  right: 780px;
+}
+.delete-all-button {
+  position: absolute;
+  align-items: center;
 }
