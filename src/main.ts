@@ -4,11 +4,11 @@ interface Todo {
   status: string
 }
 console.log('Hello from typescript')
-//document.addEventListener('DOMContentLoaded', () => {
 const todoInput = document.querySelector<HTMLInputElement>('#todo-input')
 const addTodoButton = document.querySelector('#add-todo-button')
 const todoList = document.querySelector('#todo-list')
 const deserialized = localStorage.getItem('value')
+const deleteall = document.querySelector('#delete-all')
 
 let todos: Todo[] = []
 if (deserialized) todos = JSON.parse(deserialized)
@@ -41,6 +41,7 @@ function addTodo(todo: Todo, index: number) {
     }
   }
 }
+
 function deleteTodo(index: number) {
   if (todoList) {
     todos.splice(index, 1)
@@ -49,6 +50,7 @@ function deleteTodo(index: number) {
     todos.forEach(addTodo)
   }
 }
+
 if (addTodoButton && todoInput) {
   addTodoButton.addEventListener('click', stokagetodo)
 
@@ -58,6 +60,16 @@ if (addTodoButton && todoInput) {
     }
   })
 }
+if (deleteall) {
+  deleteall.addEventListener('click', () => {
+    if (todoList) {
+      todos.length = 0
+      localStorage.removeItem('value')
+      todoList.innerHTML = ''
+    }
+  })
+}
+
 function donetodo(index: number) {
   if (todoList) {
     if (todos[index].status === 'done') {
@@ -82,4 +94,3 @@ function stokagetodo() {
     }
   }
 }
-//})
