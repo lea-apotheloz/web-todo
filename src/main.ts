@@ -1,6 +1,7 @@
 import './style.css'
 interface Todo {
   text: string
+  status: string
 }
 console.log('Hello from typescript')
 //document.addEventListener('DOMContentLoaded', () => {
@@ -27,6 +28,14 @@ function addTodo(todo: Todo, index: number) {
       })
       li.appendChild(deleteButton)
 
+      const status = document.createElement('input')
+      status.type = 'checkbox'
+      status.checked = todo.status === 'done'
+      status.addEventListener('change', () => {
+        donetodo(index)
+      })
+      li.appendChild(status)
+
       li.className = 'todo-element'
       todoList.appendChild(li)
     }
@@ -36,7 +45,7 @@ function deleteTodo(index: number) {
   if (todoList) {
     todos.splice(index, 1)
     localStorage.setItem('value', JSON.stringify(todos))
-    todoList.remove()
+    todoList.innerHTML = ''
     todos.forEach(addTodo)
   }
 }
@@ -49,11 +58,22 @@ if (addTodoButton && todoInput) {
     }
   })
 }
+function donetodo(index: number) {
+  if (todoList) {
+    if (todos[index].status === 'done') {
+      todos[index].status = 'undone '
+    } else {
+      todos[index].status = 'done'
+    }
+    localStorage.setItem('value', JSON.stringify(todos))
+  }
+}
+
 function stokagetodo() {
   if (todoInput) {
     const text: string = todoInput.value.trim()
     if (text) {
-      const newtodo: Todo = { text }
+      const newtodo: Todo = { text, status: 'undone' }
       todos.push(newtodo)
       const serialized = JSON.stringify(todos)
       localStorage.setItem('value', serialized)
