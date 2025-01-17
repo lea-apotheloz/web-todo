@@ -30,3 +30,12 @@ h1 {
   position: absolute;
   align-items: center;
 }
+#due-date {
+  margin-left: 10px;
+}
+
+.due-date {
+  position: absolute;
+  align-items: center;
+  padding: 10px;
+}

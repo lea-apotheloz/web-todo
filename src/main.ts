@@ -2,6 +2,7 @@ import './style.css'
 interface Todo {
   text: string
   status: string
+  date: string
 }
 console.log('Hello from typescript')
 const todoInput = document.querySelector<HTMLInputElement>('#todo-input')
@@ -9,6 +10,7 @@ const addTodoButton = document.querySelector('#add-todo-button')
 const todoList = document.querySelector('#todo-list')
 const deserialized = localStorage.getItem('value')
 const deleteall = document.querySelector('#delete-all')
+const duedate = document.querySelector<HTMLInputElement>('#due-date')
 
 let todos: Todo[] = []
 if (deserialized) todos = JSON.parse(deserialized)
@@ -35,6 +37,12 @@ function addTodo(todo: Todo, index: number) {
         donetodo(index)
       })
       li.appendChild(status)
+
+      const dates = document.createElement('p')
+      const time = document.createElement('time')
+      time.textContent = todo.date
+      dates.appendChild(time)
+      li.appendChild(dates)
 
       li.className = 'todo-element'
       todoList.appendChild(li)
@@ -82,10 +90,11 @@ function donetodo(index: number) {
 }
 
 function stokagetodo() {
-  if (todoInput) {
+  if (todoInput && duedate) {
+    const date: string = duedate.value.trim()
     const text: string = todoInput.value.trim()
     if (text) {
-      const newtodo: Todo = { text, status: 'undone' }
+      const newtodo: Todo = { text, status: 'undone', date }
       todos.push(newtodo)
       const serialized = JSON.stringify(todos)
       localStorage.setItem('value', serialized)
