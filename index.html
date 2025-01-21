@@ -10,14 +10,21 @@
 <h1>Web todolist app </h1>
 <div class="todo-element">
   <div class="input-container">
-    <input type="text" id="todo-input" placeholder="Enter a new todo">
+    <div class="space-bouton"></div>
+    <input id="due-date" type="text" placeholder="Due date"/>
+    <input type="text" id="todo-input" placeholder="Enter a new todo"
+           maxlength="200">
     <button id="add-todo-button" class="add-todo"> Add Todo</button>
-    <input id="due-date" type="date">
+
   </div>
-  <ul id="todo-list"></ul>
 </div>
 <script type="module" src="/src/main.ts"></script>
-<button id="delete-all" class="delete-all"> delete all</button>
+<ul id="todo-list"></ul>
+<div class="delete-all">
+  <button id="delete-all" class="delete-all"> delete all</button>
+  <p id="todo-creation-error"></p>
+</div>
 
 </body>
 </html>
+

@@ -6,12 +6,22 @@ interface Todo {
 }
 console.log('Hello from typescript')
 const todoInput = document.querySelector<HTMLInputElement>('#todo-input')
-const addTodoButton = document.querySelector('#add-todo-button')
+const addTodoButton =
+  document.querySelector<HTMLButtonElement>('#add-todo-button')
 const todoList = document.querySelector('#todo-list')
 const deserialized = localStorage.getItem('value')
 const deleteall = document.querySelector('#delete-all')
 const duedate = document.querySelector<HTMLInputElement>('#due-date')
+const error = document.querySelector<HTMLParagraphElement>(
+  '#todo-creation-error',
+)
 
+if (todoInput && addTodoButton) {
+  addTodoButton.disabled = true
+  todoInput.addEventListener('input', () => {
+    unclick(addTodoButton, todoInput)
+  })
+}
 let todos: Todo[] = []
 if (deserialized) todos = JSON.parse(deserialized)
 todos.forEach(addTodo)
@@ -65,6 +75,7 @@ if (addTodoButton && todoInput) {
   todoInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       stokagetodo()
+      unclick(addTodoButton, todoInput)
     }
   })
 }
@@ -90,16 +101,33 @@ function donetodo(index: number) {
 }
 
 function stokagetodo() {
-  if (todoInput && duedate) {
-    const date: string = duedate.value.trim()
+  if (todoInput && duedate && addTodoButton && error) {
     const text: string = todoInput.value.trim()
-    if (text) {
-      const newtodo: Todo = { text, status: 'undone', date }
-      todos.push(newtodo)
-      const serialized = JSON.stringify(todos)
-      localStorage.setItem('value', serialized)
-      todoInput.value = ''
-      addTodo(newtodo, todos.length - 1)
+    const dates = new Date(duedate.value)
+    if (Number.isNaN(dates.valueOf())) {
+      error.textContent = 'invalid date'
+    } else {
+      const date: string = duedate.value.trim()
+
+      if (text) {
+        const newtodo: Todo = { text, status: 'undone', date }
+        todos.push(newtodo)
+        const serialized = JSON.stringify(todos)
+        localStorage.setItem('value', serialized)
+        todoInput.value = ''
+        addTodo(newtodo, todos.length - 1)
+        unclick(addTodoButton, todoInput)
+        error.textContent = ''
+      }
     }
+  }
+}
+
+function unclick(
+  addTodoButton: HTMLButtonElement,
+  todoInput: HTMLInputElement,
+) {
+  if (todoInput && addTodoButton) {
+    addTodoButton.disabled = !(todoInput.value && todoInput.value.length <= 200)
   }
 }
