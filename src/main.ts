@@ -15,6 +15,8 @@ const duedate = document.querySelector<HTMLInputElement>('#due-date')
 const error = document.querySelector<HTMLParagraphElement>(
   '#todo-creation-error',
 )
+const errormessage =
+  document.querySelector<HTMLParagraphElement>('.errormessage')
 
 if (todoInput && addTodoButton) {
   addTodoButton.disabled = true
@@ -75,6 +77,7 @@ function addTodo(todo: Todo, index: number) {
 
       li.className = 'todo-element'
       todoList.appendChild(li)
+      overdueMessage(today, todos)
     }
   }
 }
@@ -120,13 +123,15 @@ function donetodo(index: number) {
 }
 
 function stokagetodo() {
-  if (todoInput && duedate && addTodoButton && error) {
+  if (todoInput && duedate && addTodoButton && error && errormessage) {
     const text: string = todoInput.value.trim()
     const dates = new Date(duedate.value)
     if (Number.isNaN(dates.valueOf())) {
       error.textContent = 'invalid date'
     } else {
       const date: string = duedate.value.trim()
+      if (dates) {
+      }
       if (text) {
         const newtodo: Todo = { text, status: 'undone', date }
         todos.push(newtodo)
@@ -140,12 +145,27 @@ function stokagetodo() {
     }
   }
 }
-
 function unclick(
   addTodoButton: HTMLButtonElement,
   todoInput: HTMLInputElement,
 ) {
   if (todoInput && addTodoButton) {
     addTodoButton.disabled = !(todoInput.value && todoInput.value.length <= 200)
+  }
+}
+
+function overdueMessage(today: Date, todos: Todo[]) {
+  let container = 0
+  for (const todo of todos) {
+    if (today.toISOString().slice(0, 10) > todo.date) {
+      container++
+    }
+  }
+  if (errormessage) {
+    if (container > 0) {
+      errormessage.textContent = 'you have a todo that is due'
+    } else {
+      errormessage.textContent = ''
+    }
   }
 }
