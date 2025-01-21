@@ -48,9 +48,28 @@ function addTodo(todo: Todo, index: number) {
       })
       li.appendChild(status)
 
+      const today = new Date()
+      const deadline = new Date(todo.date)
+      const afterfordays = new Date(today)
+      afterfordays.setDate(afterfordays.getDate() + 4)
+
+      const formatToday = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+      const formatDeadline = `${deadline.getFullYear()}-${deadline.getMonth() + 1}-${deadline.getDate()}`
+
       const dates = document.createElement('p')
       const time = document.createElement('time')
       time.textContent = todo.date
+      if (
+        deadline.toISOString().slice(0, 10) < today.toISOString().slice(0, 10)
+      ) {
+        dates.style.color = 'red'
+      } else if (formatDeadline === formatToday) {
+        dates.style.color = 'orange'
+      } else if (deadline > today && deadline < afterfordays) {
+        dates.style.color = 'yellow'
+      } else {
+        dates.style.color = 'green'
+      }
       dates.appendChild(time)
       li.appendChild(dates)
 
@@ -108,7 +127,6 @@ function stokagetodo() {
       error.textContent = 'invalid date'
     } else {
       const date: string = duedate.value.trim()
-
       if (text) {
         const newtodo: Todo = { text, status: 'undone', date }
         todos.push(newtodo)
