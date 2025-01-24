@@ -130,8 +130,6 @@ function stokagetodo() {
       error.textContent = 'invalid date'
     } else {
       const date: string = duedate.value.trim()
-      if (dates) {
-      }
       if (text) {
         const newtodo: Todo = { text, status: 'undone', date }
         todos.push(newtodo)
