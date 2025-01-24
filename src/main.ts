@@ -36,7 +36,8 @@ function addTodo(todo: Todo, index: number) {
       li.textContent = todoText
 
       const deleteButton = document.createElement('button')
-      deleteButton.textContent = 'delete'
+      deleteButton.innerHTML =
+        '<img width="20" height="20" src="https://cdn-icons-png.flaticon.com/256/8567/8567781.png" alt="filled-trash"/>'
       deleteButton.addEventListener('click', () => {
         deleteTodo(index)
       })
@@ -64,13 +65,13 @@ function addTodo(todo: Todo, index: number) {
       if (
         deadline.toISOString().slice(0, 10) < today.toISOString().slice(0, 10)
       ) {
-        dates.style.color = 'red'
+        dates.style.color = '#FF00FF'
       } else if (formatDeadline === formatToday) {
-        dates.style.color = 'orange'
+        dates.style.color = '#ff7800'
       } else if (deadline > today && deadline < afterfordays) {
-        dates.style.color = 'yellow'
+        dates.style.color = '#f0fc00'
       } else {
-        dates.style.color = 'green'
+        dates.style.color = '#19fc9c'
       }
       dates.appendChild(time)
       li.appendChild(dates)
