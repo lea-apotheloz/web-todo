@@ -1,15 +1,15 @@
 import { deleteTodo } from './deleteTodo.ts'
 import { donetodo } from './donnetodo.ts'
-import { overdueMessage } from './overdueMessage.ts'
 import type { Todo } from './interface.ts'
 import { todos } from './main.ts'
 import { todoList } from './main.ts'
+import { overdueMessage } from './overdueMessage.ts'
 
 /**
  * cette function permet permett d'ajouter des todo dans un liste "li"
  * cration du bottent qui permet de les ajouter et les supprimer
  * genere aussi le jours ou l on écrite cette todos en creant un paragraphe qui
- * sera ou est mis la date.
+ * sera ou est mis la date
  * @param todo
  * @param index
  */

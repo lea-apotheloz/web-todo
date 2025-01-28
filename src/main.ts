@@ -1,8 +1,8 @@
 import './style.css'
 import { addTodo } from './addtodo.ts'
+import type { Todo } from './interface.ts'
 import { stokagetodo } from './stokagetodo.ts'
 import { unclick } from './unclick.ts'
-import type { Todo } from './interface.ts'
 
 console.log('Hello from typescript')
 

@@ -1,5 +1,4 @@
 import { addTodo } from './addtodo.ts'
-import { unclick } from './unclick.ts'
 import type { Todo } from './interface.ts'
 import { errormessage } from './main.ts'
 import { todos } from './main.ts'
@@ -7,6 +6,7 @@ import { duedate } from './main.ts'
 import { error } from './main.ts'
 import { todoInput } from './main.ts'
 import { addTodoButton } from './main.ts'
+import { unclick } from './unclick.ts'
 
 /**
  * cette function sert a gerer le stokage  et le mettre dans le localstorage
