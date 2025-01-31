@@ -9,7 +9,7 @@ console.log('Hello from typescript')
 export const todoInput = document.querySelector<HTMLInputElement>('#todo-input')
 export const addTodoButton =
   document.querySelector<HTMLButtonElement>('#add-todo-button')
-export const todoList = document.querySelector('#todo-list')
+export const todoList = document.querySelector<HTMLUListElement>('#todo-list')
 const deserialized = localStorage.getItem('value')
 const deleteall = document.querySelector('#delete-all')
 export const duedate = document.querySelector<HTMLInputElement>('#due-date')
@@ -25,16 +25,25 @@ if (todoInput && addTodoButton) {
     unclick(addTodoButton, todoInput)
   })
 }
+
 export let todos: Todo[] = []
 if (deserialized) todos = JSON.parse(deserialized)
-todos.forEach(addTodo)
+if (todoList)
+  if (errormessage)
+    for (const [index, todo] of todos.entries()) {
+      addTodo(todo, index, todoList, todos, errormessage)
+    }
 
-if (addTodoButton && todoInput) {
-  addTodoButton.addEventListener('click', stokagetodo)
+if (addTodoButton && todoInput && duedate) {
+  if (todoList) {
+    addTodoButton.addEventListener('click', () => {
+      stokagetodo(todoInput, duedate, addTodoButton)
+    })
+  }
 
   todoInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-      stokagetodo()
+      stokagetodo(todoInput, duedate, addTodoButton)
       unclick(addTodoButton, todoInput)
     }
   })

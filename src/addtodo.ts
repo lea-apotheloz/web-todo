@@ -1,20 +1,27 @@
 import { deleteTodo } from './deleteTodo.ts'
 import { donetodo } from './donnetodo.ts'
 import type { Todo } from './interface.ts'
-import { todos } from './main.ts'
-import { todoList } from './main.ts'
 import { overdueMessage } from './overdueMessage.ts'
 
 /**
  * cette function permet permett d'ajouter des todo dans un liste "li"
- * cration du bottent qui permet de les ajouter et les supprimer
+ * cration du bottent qui permet de les ajoutés et les supprimer
  * genere aussi le jours ou l on écrite cette todos en creant un paragraphe qui
  * sera ou est mis la date
  * @param todo
  * @param index
+ * @param todoList
+ * @param todos
+ * @param errormessage
  */
 
-export function addTodo(todo: Todo, index: number) {
+export function addTodo(
+  todo: Todo,
+  index: number,
+  todoList: HTMLUListElement,
+  todos: Todo[],
+  errormessage: HTMLParagraphElement,
+) {
   if (todoList) {
     const todoText = todo.text
     if (todoText) {
@@ -25,7 +32,7 @@ export function addTodo(todo: Todo, index: number) {
       deleteButton.innerHTML =
         '<img width="20" height="20" src="https://cdn-icons-png.flaticon.com/256/8567/8567781.png" alt="filled-trash"/>'
       deleteButton.addEventListener('click', () => {
-        deleteTodo(index)
+        deleteTodo(index, todos, todoList, errormessage)
       })
       li.appendChild(deleteButton)
 
@@ -33,7 +40,7 @@ export function addTodo(todo: Todo, index: number) {
       status.type = 'checkbox'
       status.checked = todo.status === 'done'
       status.addEventListener('change', () => {
-        donetodo(index)
+        donetodo(index, todoList, todos)
       })
       li.appendChild(status)
 
@@ -64,7 +71,7 @@ export function addTodo(todo: Todo, index: number) {
 
       li.className = 'todo-element'
       todoList.appendChild(li)
-      overdueMessage(today, todos)
+      overdueMessage(today, todos, errormessage)
     }
   }
 }

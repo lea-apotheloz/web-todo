@@ -1,7 +1,10 @@
-import { todoList } from './main.ts'
-import { todos } from './main.ts'
+import type { Todo } from './interface.ts'
 
-export function donetodo(index: number) {
+export function donetodo(
+  index: number,
+  todoList: HTMLUListElement,
+  todos: Todo[],
+) {
   if (todoList) {
     if (todos[index].status === 'done') {
       todos[index].status = 'undone '
