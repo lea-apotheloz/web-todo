@@ -1,15 +1,14 @@
 import { addTodo } from './addtodo.ts'
-import type { Todo } from './interface.ts'
+import { fetchPost } from './api-todos.ts'
 import { error, errormessage, todoList, todos } from './main.ts'
 import { unclick } from './unclick.ts'
 
 /**
  * cette function sert a gerer le stokage  et le mettre dans le localstorage
- * ainsi que précicer leur status stocker aussi dans le local storage.
  *
  */
 
-export function stokagetodo(
+export async function stokagetodo(
   todoInput: HTMLInputElement,
   duedate: HTMLInputElement,
   addTodoButton: HTMLButtonElement,
@@ -21,12 +20,19 @@ export function stokagetodo(
       if (Number.isNaN(dates.valueOf())) {
         error.textContent = 'invalid date'
       } else {
-        const date: string = duedate.value.trim()
+        const due_date: string = duedate.value.trim()
         if (text) {
-          const newtodo: Todo = { text, status: 'undone', date }
+          const newtodo = {
+            done: false,
+            due_date,
+            title: text,
+            id: text,
+            content: text,
+          }
+          // add to api fetch
+          await fetchPost(newtodo.title, newtodo.due_date, newtodo.done)
+
           todos.push(newtodo)
-          const serialized = JSON.stringify(todos)
-          localStorage.setItem('value', serialized)
           todoInput.value = ''
           addTodo(newtodo, todos.length - 1, todoList, todos, errormessage)
           unclick(addTodoButton, todoInput)

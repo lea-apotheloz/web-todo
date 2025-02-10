@@ -1,4 +1,5 @@
-import type { Todo } from './interface.ts'
+import type { Todo } from './api-todos.ts'
+
 /**
  * cette function permet de de regarder le que l'on est et si une date est deja passer afficher un message d'error
  * @param today
@@ -8,12 +9,12 @@ import type { Todo } from './interface.ts'
 
 export function overdueMessage(
   today: Date,
-  todos: Todo[],
+  gettodo: Todo[],
   errormessage: HTMLParagraphElement,
 ) {
   let container = 0
-  for (const todo of todos) {
-    if (today.toISOString().slice(0, 10) > todo.date) {
+  for (const todo of gettodo) {
+    if (today.toISOString().slice(0, 10) > todo.due_date) {
       container++
     }
   }
