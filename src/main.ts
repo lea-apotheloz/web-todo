@@ -1,6 +1,6 @@
 import './style.css'
 import { addTodo } from './addtodo.ts'
-import type { Todo } from './interface.ts'
+import { type Todo, fetchDeletedall } from './api-todos.ts'
 import { stokagetodo } from './stokagetodo.ts'
 import { unclick } from './unclick.ts'
 
@@ -10,7 +10,6 @@ export const todoInput = document.querySelector<HTMLInputElement>('#todo-input')
 export const addTodoButton =
   document.querySelector<HTMLButtonElement>('#add-todo-button')
 export const todoList = document.querySelector<HTMLUListElement>('#todo-list')
-const deserialized = localStorage.getItem('value')
 const deleteall = document.querySelector('#delete-all')
 export const duedate = document.querySelector<HTMLInputElement>('#due-date')
 export const error = document.querySelector<HTMLParagraphElement>(
@@ -26,12 +25,16 @@ if (todoInput && addTodoButton) {
   })
 }
 
-export let todos: Todo[] = []
-if (deserialized) todos = JSON.parse(deserialized)
+// add to api fetch deletedall
+const response = await fetch('https://api.todos.in.jt-lab.ch/todos')
+export const gettodo: Todo[] = await response.json()
+
+
+export const todos: Todo[] = []
 if (todoList)
   if (errormessage)
-    for (const [index, todo] of todos.entries()) {
-      addTodo(todo, index, todoList, todos, errormessage)
+    for (const [index, todo] of gettodo.entries()) {
+      addTodo(todo, index, todoList, gettodo, errormessage)
     }
 
 if (addTodoButton && todoInput && duedate) {
@@ -49,10 +52,10 @@ if (addTodoButton && todoInput && duedate) {
   })
 }
 if (deleteall) {
-  deleteall.addEventListener('click', () => {
+  deleteall.addEventListener('click', async () => {
     if (todoList) {
+      await fetchDeletedall()
       todos.length = 0
-      localStorage.removeItem('value')
       todoList.innerHTML = ''
     }
   })

@@ -1,16 +1,17 @@
-import type { Todo } from './interface.ts'
 
-export function donetodo(
+import {fetchPatch,type Todo} from './api-todos.ts'
+
+export async function donetodo(
   index: number,
   todoList: HTMLUListElement,
   todos: Todo[],
+  todospatch: Todo
 ) {
+  console.log(todos)
   if (todoList) {
-    if (todos[index].status === 'done') {
-      todos[index].status = 'undone '
-    } else {
-      todos[index].status = 'done'
+    if (todos[index]) {
+      todos[index].done = !todos[index].done;
     }
-    localStorage.setItem('value', JSON.stringify(todos))
   }
+  await fetchPatch(todospatch, todos, index)
 }

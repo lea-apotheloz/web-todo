@@ -1,7 +1,7 @@
 import { deleteTodo } from './deleteTodo.ts'
 import { donetodo } from './donnetodo.ts'
-import type { Todo } from './interface.ts'
 import { overdueMessage } from './overdueMessage.ts'
+import type {Todo} from './api-todos.ts'
 
 /**
  * cette function permet permett d'ajouter des todo dans un liste "li"
@@ -15,7 +15,7 @@ import { overdueMessage } from './overdueMessage.ts'
  * @param errormessage
  */
 
-export function addTodo(
+export async function addTodo(
   todo: Todo,
   index: number,
   todoList: HTMLUListElement,
@@ -23,7 +23,7 @@ export function addTodo(
   errormessage: HTMLParagraphElement,
 ) {
   if (todoList) {
-    const todoText = todo.text
+    const todoText = todo.title
     if (todoText) {
       const li = document.createElement('li')
       li.textContent = todoText
@@ -32,20 +32,24 @@ export function addTodo(
       deleteButton.innerHTML =
         '<img width="20" height="20" src="https://cdn-icons-png.flaticon.com/256/8567/8567781.png" alt="filled-trash"/>'
       deleteButton.addEventListener('click', () => {
-        deleteTodo(index, todos, todoList, errormessage)
+        deleteTodo(index, todos, todoList, errormessage, todo)
       })
       li.appendChild(deleteButton)
 
+
+
       const status = document.createElement('input')
       status.type = 'checkbox'
-      status.checked = todo.status === 'done'
-      status.addEventListener('change', () => {
-        donetodo(index, todoList, todos)
+      status.checked = todo.done
+      status.addEventListener('change',() => {
+        donetodo(index, todoList, todos, todo)
       })
       li.appendChild(status)
 
+
+
       const today = new Date()
-      const deadline = new Date(todo.date)
+      const deadline = new Date(todo.due_date)
       const afterfordays = new Date(today)
       afterfordays.setDate(afterfordays.getDate() + 4)
 
@@ -54,11 +58,11 @@ export function addTodo(
 
       const dates = document.createElement('p')
       const time = document.createElement('time')
-      time.textContent = todo.date
+      time.textContent = todo.due_date
       if (
         deadline.toISOString().slice(0, 10) < today.toISOString().slice(0, 10)
       ) {
-        dates.style.color = '#FF00FF'
+        dates.style.color = '#ff00ff'
       } else if (formatDeadline === formatToday) {
         dates.style.color = '#ff7800'
       } else if (deadline > today && deadline < afterfordays) {
