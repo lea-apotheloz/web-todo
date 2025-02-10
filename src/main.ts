@@ -29,7 +29,6 @@ if (todoInput && addTodoButton) {
 const response = await fetch('https://api.todos.in.jt-lab.ch/todos')
 export const gettodo: Todo[] = await response.json()
 
-
 export const todos: Todo[] = []
 if (todoList)
   if (errormessage)

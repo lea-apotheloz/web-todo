@@ -41,7 +41,7 @@ export async function fetchDeletedall() {
 export async function fetchPatch(
   todospatch: Todo,
   todos: Todo[],
-  index: number
+  index: number,
 ) {
   console.log(todospatch)
   fetch(`https://api.todos.in.jt-lab.ch/todos?id=eq.${todospatch.id}`, {
@@ -51,6 +51,6 @@ export async function fetchPatch(
     },
     body: JSON.stringify({
       done: todos[index].done,
-    })
+    }),
   })
 }

@@ -1,6 +1,6 @@
 import { addTodo } from './addtodo.ts'
 
-import { fetchDeleted, type Todo } from './api-todos.ts'
+import { type Todo, fetchDeleted } from './api-todos.ts'
 
 /**
  * cette function permet de de supprimer des todos une par une
@@ -21,7 +21,7 @@ export async function deleteTodo(
   if (todoList) {
     todos.splice(index, 1)
     todoList.innerHTML = ''
-// add fetch
+    // add fetch
     await fetchDeleted(deletedtodo)
     for (const [index, todo] of todos.entries()) {
       // entries() renvoie un tableau qui correspondent aux propriétés énumérables

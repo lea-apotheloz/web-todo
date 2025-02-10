@@ -1,7 +1,7 @@
+import type { Todo } from './api-todos.ts'
 import { deleteTodo } from './deleteTodo.ts'
 import { donetodo } from './donnetodo.ts'
 import { overdueMessage } from './overdueMessage.ts'
-import type {Todo} from './api-todos.ts'
 
 /**
  * cette function permet permett d'ajouter des todo dans un liste "li"
@@ -36,17 +36,13 @@ export async function addTodo(
       })
       li.appendChild(deleteButton)
 
-
-
       const status = document.createElement('input')
       status.type = 'checkbox'
       status.checked = todo.done
-      status.addEventListener('change',() => {
+      status.addEventListener('change', () => {
         donetodo(index, todoList, todos, todo)
       })
       li.appendChild(status)
-
-
 
       const today = new Date()
       const deadline = new Date(todo.due_date)
