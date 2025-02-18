@@ -11,7 +11,7 @@ export async function fetchPost(
   due_date: string,
   done: boolean,
 ) {
-  const post = await fetch('https://api.todos.in.jt-lab.ch/todos', {
+  await fetch('https://api.todos.in.jt-lab.ch/todos', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,8 +22,6 @@ export async function fetchPost(
       done: done,
     }),
   })
-  if (post.ok) {
-  }
 }
 
 export async function fetchDeleted(deletedtodo: Todo) {
