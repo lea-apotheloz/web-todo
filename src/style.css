@@ -1,7 +1,6 @@
 html,
 body {
-  background-image: url("pink.jpg");
-  background-repeat: no-repeat;
+  background: url("/web-todo/pink.jpg");
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -17,11 +16,13 @@ h1 {
   font-family: cursive;
   font-weight: bolder;
 }
+
 .todo-element {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 li {
   gap: 2rem;
 }
@@ -44,12 +45,13 @@ li {
 }
 
 button {
-  margin-left: 15px;
+  margin-left: 90px;
   box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.24), 0 16px 60px 0
     rgba(0, 0, 0, 0.19);
   font-size: 16px;
   border: 1px solid #ff8ee0;
 }
+
 .errormessage {
   color: black;
   background: #ff00ff;
@@ -58,6 +60,7 @@ button {
   justify-content: center;
   align-items: center;
 }
+
 .fond {
   height: 100%;
   width: 100%;
@@ -68,29 +71,33 @@ button {
   justify-content: center;
   align-items: center;
 }
+
 #todo-list {
   margin-right: auto;
   margin-left: auto;
 }
+
 li {
   border: #ff8ee0 solid 4px;
   margin-top: 5px;
   margin-right: auto;
   margin-left: auto;
 }
+
 /* modification des input */
 
 #add-todo-button {
   border: #ff8ee0 solid 2px;
   border-radius: 5px;
 }
+
 #todo-input[type="text"] {
   border: #ff8ee0 solid 3px;
   border-radius: 10px;
   height: 30px;
   margin-left: 5px;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 18px;
   background-repeat: no-repeat;
 }
 
@@ -104,4 +111,46 @@ li {
   background-position: 10px 10px;
   background-repeat: no-repeat;
   transition: width 0.4s ease-in-out;
+}
+
+/*  créat catégorie  */
+#categoriesInput {
+  border: #ff8ee0 solid 3px;
+  border-radius: 20px;
+  height: 40px;
+  margin-left: 5px;
+  box-sizing: border-box;
+  font-size: 18px;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  transition: width 0.4s ease-in-out;
+}
+
+#categoriesColor {
+  border: #ff8ee0 solid 3px;
+  border-radius: 10px;
+  height: 40px;
+  margin-left: 5px;
+  box-sizing: border-box;
+  font-size: 18px;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  transition: width 0.4s ease-in-out;
+}
+
+#category-button {
+  border: #ff8ee0 solid 3px;
+  border-radius: 10px;
+  height: 40px;
+  margin-left: 5px;
+  box-sizing: border-box;
+  font-size: 18px;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  transition: width 0.4s ease-in-out;
+}
+
+.category-container {
+  display: flex;
+  justify-content: center;
 }
